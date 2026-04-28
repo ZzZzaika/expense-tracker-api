@@ -22,7 +22,7 @@ next_id = 1
 def health_check():
     return {"status": "ok"}
 
-@app.get("/expenses") # получить список всех расходов
+@app.get("/expenses") # получить список всех расходов get
 def get_expenses():
     return {"expenses": expenses_db, "total": len(expenses_db)}
 
