@@ -1,0 +1,29 @@
+name: Run API tests on Pull Request
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Получение исходного кода
+        uses: actions/checkout@v4
+
+      - name: Установка зависимостей
+        run: |
+          pip install -r requirements.txt
+
+      - name: Запуск API-тестов
+        run: |
+          pytest test_expense_api.py -v --junitxml=test-results.xml
+
+      - name: Сохранение результатов тестов
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results.xml
